@@ -1,0 +1,7 @@
+pytest==7.1.1
+redis==4.1.4
+numpy==1.22 
+IPython==8.3.0
+protobuf~=3.19.0
+opencv-contrib-python==3.4.17.63
+easyocr==1.5.0

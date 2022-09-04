@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>KaizerAI | Car</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+    <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+    <link href="favicon.ico" rel="shortcut icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="static/templates/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="static/templates/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="static/templates/lib/animate-css/animate.min.css" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="static/templates/css/style.css" rel="stylesheet">
+
+</head>
+
+
+
+<body>
+    <div id="preloader"></div>
+
+    <section id="hero">
+        <div class="hero-container">
+            <div class="wow fadeIn">
+                <div class="hero-logo"></div>
+
+                <h1>KaizerAI | Car</h1>
+                <h2>We are <span class="rotating">technology, innovation, AnyoneAI</span></h2>
+                <div class="actions">
+                    <a href="#about" class="btn-get-started">Get Started</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!--==========================
+  Header
+  ============================-->
+    <header id="header">
+        <div class="container">
+            <div id="logo" class="pull-left">
+                <a href="#hero"><img src="static/templates/img/logo.png" alt="AnyOneAI" title="KaizerAI" /></img></a>
+            </div>
+
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a href="#hero">Home</a></li>
+                    <li><a href="#about">Give It a Try</a></li>
+
+                </ul>
+            </nav>
+            <!-- #nav-menu-container -->
+        </div>
+    </header>
+    <!-- #header -->
+
+    <!--==========================
+  About Section
+  ============================-->
+    <section id="about">
+        <div class="container wow fadeInUp">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="section-title">Give It a Try </h3>
+                    <div class="section-title-divider"></div>
+                    <p class="section-description">We have utilized the most advanced technology to build an automotive
+                        API which
+                        is capable of recognizing the Make, Model and Plate of most cars built in Europe.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container about-container wow fadeInUp">
+            <div class="row">
+                <div class="row">
+                    <h2 class="about-title">Make / Model / Plate Recognition
+                        API</h2>
+                    <p class="about-text">
+                    <h3>Select a file to upload</h3>
+                    <p>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    </p>
+
+                    {% if filename %}
+
+                    <table width="100%" height="100" class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th width="40%" scope="col"> <br>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <br><br>
+                                            <label for="subject">Top 1 Predicted Class: {{ context['top1_pred'] }}
+                                            </label>
+                                            <br><br>
+                                            <div class="progress" style="width: 50%;">
+                                                <div class="progress-bar" role="progressbar"
+                                                    style="width: {{ context['top1_score'] }}%; background-color: #29e8c6; color:black"
+                                                    aria-valuenow="{{ context['top1_score'] }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                    {{context['top1_score'] }}%</div>
+                                            </div>
+                                            <label for="subject">Top 2 Predicted Class: {{ context['top2_pred'] }}
+                                            </label>
+                                            <br><br>
+                                            <div class="progress" style="width: 50%;">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: {{ context['top2_score'] }}%; background-color: #29e8c6; color:black"
+                                                    aria-valuenow="{{ context['top2_score'] }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                    {{context['top2_score'] }}%</div>
+                                            </div>
+                                            <label for="subject">Top 3 Predicted Class: {{ context['top3_pred'] }}
+                                            </label>
+                                            <br><br>
+                                            <div class="progress" style="width: 50%;">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width: {{ context['top3_score'] }}%; background-color: #29e8c6; color:black"
+                                                    aria-valuenow="{{ context['top3_score'] }}" aria-valuemin="0"
+                                                    aria-valuemax="100">
+                                                    {{context['top3_score'] }}%</div>
+                                            </div>
+                                            <label for="subject">Plate Number: {{ context['plate_number'] }}
+                                            </label>
+                                            <br><br>
+                                            <label for="subject">Message: {{ context['message'] }}
+                                            </label>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th width="60%" scope="col" alig="right">
+                                    <div class="col" alig="right">
+                                        <img src="{{ filename }}" class="mw-50" alt="Responsive image" width="70%">
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <form id="form" method="POST" action="/feedback">
+                        <button class="btn btn-info" type="submit">Report incorrect answer</button>
+                        <br>
+                        <input name="report" style="visibility: hidden;"
+                            value="{'filename': '{{ filename }}', 'prediction': '{{ context['top1_pred'] }}', 'score': {{ context['top1_score'] }}, 'plate_number': {{ context['plate_number'] }}, 'Message': {{ context['message'] }} }" />
+                    </form>
+                    {% endif %}
+                    <form method="post" action="#about" enctype="multipart/form-data">
+                        <input type="file" name="file" autocomplete="off" required>
+                        <br>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==========================
+  Footer
+============================-->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        AnyoneAI <strong>Cohort 2022-01</strong>
+                    </div>
+                    <div class="credits">
+
+                        KaizerAI by <a href="https://www.youtube.com/watch?v=4OAFtr-ciQE">me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- #footer -->
+
+    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Required JavaScript Libraries -->
+    <script src="static/templates/lib/jquery/jquery.min.js"></script>
+    <script src="static/templates/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/templates/lib/superfish/hoverIntent.js"></script>
+    <script src="static/templates/lib/superfish/superfish.min.js"></script>
+    <script src="static/templates/lib/morphext/morphext.min.js"></script>
+    <script src="static/templates/lib/wow/wow.min.js"></script>
+    <script src="static/templates/lib/stickyjs/sticky.js"></script>
+    <script src="static/templates/lib/easing/easing.js"></script>
+
+    <!-- Template Specisifc Custom Javascript File -->
+    <script src="static/templates/js/custom.js"></script>
+
+    <script src="static/templates/contactform/contactform.js"></script>
+
+
+</body>
+
+</html>

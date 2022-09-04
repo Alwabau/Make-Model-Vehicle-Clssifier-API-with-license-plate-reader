@@ -1,0 +1,99 @@
+version: "3.4"
+services:
+  api:
+    image: flask_api
+    container_name: ml_api
+    build:
+      context: ./api
+      target: build
+    ports:
+      - "5000:5000"
+    dns: 
+      - 208.67.222.222
+    environment:
+      - FLASK_APP=app
+      - FLASK_DEBUG=1
+      - FLASK_ENV=development
+    depends_on:
+      - redis
+      - detectron_model
+      - mobilenet_model
+      - densenet_model
+      - ocr_model
+    volumes:
+      - ./feedback:/src/feedback
+      - ./uploads:/src/static/uploads
+      - ./template_files:/src/static/templates
+
+  redis:
+    image: redis:6.2.6
+
+  detectron_model:
+    image: detectron_service
+    build:
+      context: ./detectron_model
+      target: build
+    depends_on:
+      - redis
+    volumes:
+      - ./uploads:/src/uploads
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  
+  mobilenet_model:
+    image: mobilenet_service
+    build:
+      context: ./mobilenet_model
+      target: build
+    depends_on:
+      - redis
+    volumes:
+      - ./uploads:/src/uploads
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  densenet_model:
+    image: densenet_service
+    build:
+      context: ./densenet_model
+      target: build
+    depends_on:
+      - redis
+    volumes:
+      - ./uploads:/src/uploads
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+
+  ocr_model:
+    image: ocr_service
+    build:
+      context: ./ocr_model
+      target: build
+    depends_on:
+      - redis
+    volumes:
+      - ./uploads:/src/uploads
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
